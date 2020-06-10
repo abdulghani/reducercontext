@@ -1,8 +1,11 @@
 {
   "name": "@abdulghani/reducercontext",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "use reducer to provide & maintain state inside context",
   "homepage": "https://github.com/abdulghani/reducercontext",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "main": "build/index.js",
   "scripts": {
     "build": "rm -rf ./build && babel ./src --out-dir ./build --extensions \".ts,.tsx\" && tsc",
