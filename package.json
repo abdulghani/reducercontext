@@ -1,6 +1,6 @@
 {
   "name": "@abdulghani/reducercontext",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "use reducer to provide & maintain state inside context",
   "homepage": "https://github.com/abdulghani/reducercontext",
   "publishConfig": {

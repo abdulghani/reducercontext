@@ -23,11 +23,12 @@ const ParentComponent = () => {
 
 Access the state & dispatch
 ```javascript
-import {useSelector, useDispatch} from "@abdulghani/reducercontext";
+import {useSelector, useDispatch, useThunk} from "@abdulghani/reducercontext";
 
 const ChildrenComponent = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
+  const thunk = useThunk();
 
   // use them
 }
