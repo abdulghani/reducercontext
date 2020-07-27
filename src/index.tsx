@@ -46,5 +46,7 @@ export const useDispatch = (): ((action: Action) => void) => {
 
 export const useThunk = (): ((action: Function) => void) => {
   const { dispatch } = useContext(context);
-  return useCallback((action: Function) => action(dispatch), [dispatch]);
+  return useCallback(async (action: Function) => await action(dispatch), [
+    dispatch,
+  ]);
 };
