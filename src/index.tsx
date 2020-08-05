@@ -11,6 +11,7 @@ import { Action, ContextShape } from "./constants";
 declare interface ReducerContextProps {
   reducer: Reducer<any, Action>;
   children: React.ReactElement;
+  initialState?: any;
 }
 
 const context = createContext<ContextShape>({
@@ -18,13 +19,12 @@ const context = createContext<ContextShape>({
   dispatch: () => ({}),
 });
 
-const ReducerContext = ({
-  reducer,
-  children,
-}: ReducerContextProps): React.ReactElement => {
-  const initialState = useMemo(() => reducer(undefined, { type: "INIT" }), [
-    reducer,
-  ]);
+const ReducerContext = (props: ReducerContextProps): React.ReactElement => {
+  const { reducer, children } = props;
+  const initialState = useMemo(
+    () => props.initialState ?? reducer(undefined, { type: "INIT" }),
+    [reducer]
+  );
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
