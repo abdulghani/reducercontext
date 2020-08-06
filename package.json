@@ -1,6 +1,6 @@
 {
   "name": "@abdulghani/reducercontext",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "use reducer to provide & maintain state inside context",
   "homepage": "https://github.com/abdulghani/reducercontext",
   "main": "build/index.js",

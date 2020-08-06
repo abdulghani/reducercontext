@@ -42,9 +42,9 @@ export const useSelector = (fn: Function): any => {
 export const useDispatch = () => {
   const { dispatch } = useContext(context);
   return useCallback(
-    <R,>(action: Action | ThunkAction<R>): void | Promise<R> => {
-      if (typeof action === "function") return action(dispatch);
-      else return dispatch(action);
+    (action: Action | Function): void => {
+      if (typeof action === "function") action(dispatch);
+      else dispatch(action);
     },
     [dispatch]
   );
