@@ -19,7 +19,7 @@ const context = createContext<ContextShape>({
   dispatch: () => ({}),
 });
 
-const ReducerContext = (props: ReducerContextProps): React.ReactElement => {
+function ReducerContext(props: ReducerContextProps): React.ReactElement {
   const { reducer, children } = props;
   const initialState = useMemo(
     () => props.initialState ?? reducer(undefined, { type: "INIT" }),
@@ -30,17 +30,18 @@ const ReducerContext = (props: ReducerContextProps): React.ReactElement => {
   return (
     <context.Provider value={{ state, dispatch }}>{children}</context.Provider>
   );
-};
+}
 
 export default ReducerContext;
 
-export const useSelector = (fn: Function): any => {
+export function useSelector(fn: Function): any {
   const { state } = useContext(context);
   return useMemo(() => fn(state), [fn, state]);
-};
+}
 
-export const useDispatch = () => {
+export function useDispatch() {
   const { dispatch } = useContext(context);
+
   return useCallback(
     (action: Action | Function): any => {
       if (typeof action === "function") return action(dispatch);
@@ -49,12 +50,12 @@ export const useDispatch = () => {
     },
     [dispatch]
   );
-};
+}
 
-export const useThunk = () => {
+export function useThunk() {
   const { dispatch } = useContext(context);
   return useCallback(
     <R,>(action: ThunkAction<R>): Promise<R> => action(dispatch),
     [dispatch]
   );
-};
+}
