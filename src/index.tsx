@@ -6,7 +6,7 @@ import React, {
   useContext,
   useCallback,
 } from "react";
-import { Action, ContextShape } from "./constants";
+import { Action, ContextShape, ThunkAction } from "./constants";
 
 declare interface ReducerContextProps {
   reducer: Reducer<any, Action>;
@@ -39,13 +39,21 @@ export const useSelector = (fn: Function): any => {
   return useMemo(() => fn(state), [fn, state]);
 };
 
-export const useDispatch = (): ((action: Action) => void) => {
+export const useDispatch = () => {
   const { dispatch } = useContext(context);
-  return useCallback((action: Action) => dispatch(action), [dispatch]);
+  return useCallback(
+    <R,>(action: Action | ThunkAction<R>): void | Promise<R> => {
+      if (typeof action === "function") return action(dispatch);
+      else return dispatch(action);
+    },
+    [dispatch]
+  );
 };
 
 export const useThunk = () => {
   const { dispatch } = useContext(context);
-  return <R,>(action: (dispatch: Function) => Promise<R>): Promise<R> =>
-    action(dispatch);
+  return useCallback(
+    <R,>(action: ThunkAction<R>): Promise<R> => action(dispatch),
+    [dispatch]
+  );
 };

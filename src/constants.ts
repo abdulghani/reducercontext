@@ -9,3 +9,5 @@ export declare interface Action {
   type: string;
   [args: string]: any;
 }
+
+export declare type ThunkAction<T> = (dispatch: Function) => Promise<T>;
