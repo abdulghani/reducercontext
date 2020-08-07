@@ -34,8 +34,8 @@ function ReducerContext(props: ReducerContextProps): React.ReactElement {
 
 export default ReducerContext;
 
-export function useSelector(fn: Function): any {
-  const { state } = useContext(context);
+export function useSelector(fn: (s: any) => any): any {
+  const { state }: { state: any } = useContext(context);
   return useMemo(() => fn(state), [fn, state]);
 }
 
